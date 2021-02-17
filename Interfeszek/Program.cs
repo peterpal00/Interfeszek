@@ -12,8 +12,8 @@ namespace Interfeszek
         {
             SzamKitalaloJatek test1 = new SzamKitalaloJatek(5, 50);
 
-            VeletlenTippelo tipper1 = new VeletlenTippelo();
-            BejaroTippelo tipper2 = new BejaroTippelo();
+            ITippelo veletlenTipper = new VeletlenTippelo();
+            ITippelo bejaroTipper = new BejaroTippelo();
 
 
         }

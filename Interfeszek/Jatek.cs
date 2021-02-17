@@ -14,7 +14,7 @@ namespace Interfeszek
 
 
         // felvesz egy versenyzo tipust a tombbe
-        protected void VersenyzoFelvetele(ITippelo versenyzo)
+        protected void VersenyzoFelvetele(GepiJatekos versenyzo)
         {
             versenyzok[versenyzoN++] = versenyzo;
         }
