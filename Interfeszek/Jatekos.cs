@@ -38,7 +38,10 @@ namespace Interfeszek
         public override int KovetkezoTipp()
         {
             Random r = new Random();
-            return r.Next(alsoHatar, felsoHatar);
+            int tipp = r.Next(alsoHatar, felsoHatar);
+            System.Threading.Thread.Sleep(10);                              // varni kell, hogy ne dobjon egymas utan a random azonos szamokat
+            Console.WriteLine("Veletlentippelo tippel : {0}", tipp);
+            return tipp;
         }
     }
 
@@ -54,6 +57,7 @@ namespace Interfeszek
 
         public override int KovetkezoTipp()
         {
+            Console.WriteLine("Bejarotippelo tippel : {0}", aktualis);
             return aktualis++;
         }
     }

@@ -12,7 +12,7 @@ namespace Interfeszek
         void Veszitett();
     }
 
-    interface ITippelo
+    interface ITippelo : IJatekos
     {
         void JatekIndul(int alsoHatar, int felsoHatar);
         int KovetkezoTipp();

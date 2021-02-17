@@ -12,9 +12,14 @@ namespace Interfeszek
         {
             SzamKitalaloJatek test1 = new SzamKitalaloJatek(5, 50);
 
-            ITippelo veletlenTipper = new VeletlenTippelo();
-            ITippelo bejaroTipper = new BejaroTippelo();
+            GepiJatekos veletlenTipper = new VeletlenTippelo();
+            GepiJatekos bejaroTipper = new BejaroTippelo();
 
+            test1.VersenyzoFelvetele(veletlenTipper);
+            test1.VersenyzoFelvetele(bejaroTipper);
+
+            test1.Jatek();
+            Console.ReadLine();
 
         }
     }

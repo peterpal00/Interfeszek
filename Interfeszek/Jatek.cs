@@ -9,12 +9,12 @@ namespace Interfeszek
     class SzamKitalaloJatek
     {
         const byte MAX_VERSENYZO = 5;                                           // a versenyzok maximalis szama
-        protected ITippelo[] versenyzok = new ITippelo[MAX_VERSENYZO];          // a versenyzok tombje
+        protected GepiJatekos[] versenyzok = new GepiJatekos[MAX_VERSENYZO];          // a versenyzok tombje
         protected byte versenyzoN = 0;                                          // szamolja hanz versenyzot vettunk fel
 
 
         // felvesz egy versenyzo tipust a tombbe
-        protected void VersenyzoFelvetele(GepiJatekos versenyzo)
+        public void VersenyzoFelvetele(GepiJatekos versenyzo)
         {
             versenyzok[versenyzoN++] = versenyzo;
         }
@@ -41,6 +41,7 @@ namespace Interfeszek
 
             Random r = new Random();
             cel = r.Next(alsoHatar, felsoHatar);
+            System.Threading.Thread.Sleep(10);                                 // muszaj varni mert a cel random es a tippelo random mindig azonos erteket hoz ki
             Console.WriteLine("Cel: {0}", cel);
 
             for(int i = 0; i < versenyzoN; i++)
@@ -52,6 +53,7 @@ namespace Interfeszek
         // minden jatekos tippel es eldonti, hogz jo-e a tipp
         protected bool MindenkiTippel()
         {
+            Console.WriteLine("Mindenki tippel");
             bool[] isThereWinner = new bool[versenyzoN+1];                      // a tomb utolso elemeben van eltarolva az hogz volt-e nzertes a korben
             for(int i = 0; i < versenyzoN+1; i++)
             {
@@ -60,16 +62,17 @@ namespace Interfeszek
 
             for(int i = 0; i < versenyzoN; i++)
             {
-                versenyzok[i].KovetkezoTipp();
+                int tipp = versenyzok[i].KovetkezoTipp();
 
                 if(cel == tipp)
                 {
+                    Console.WriteLine("Valaki nyert!!!");
                     versenyzok[i].Nyert();
-                    isThereWinner[versenyzoN+1] = true;
+                    isThereWinner[versenyzoN] = true;                           // beallitja a tomb utolso elemet, mivel volt nyertes
                 }
             }
 
-            if (isThereWinner[versenyzoN+1])
+            if (isThereWinner[versenyzoN])
             {
                 for (int i = 0; i < versenyzoN; i++)
                 {
@@ -80,7 +83,7 @@ namespace Interfeszek
                 }
             }
             
-            if(isThereWinner[versenyzoN+1])
+            if(isThereWinner[versenyzoN])
             {
                 return true;
             }
@@ -90,7 +93,7 @@ namespace Interfeszek
             }
         }
 
-        protected void Jatek()
+        public void Jatek()
         {
             Console.WriteLine("!Jatek KEZDODIK!!");
             this.VersenyIndul();
