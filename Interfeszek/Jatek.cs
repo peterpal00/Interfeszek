@@ -1,0 +1,100 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Interfeszek
+{
+    class SzamKitalaloJatek
+    {
+        const byte MAX_VERSENYZO = 5;                                           // a versenyzok maximalis szama
+        protected ITippelo[] versenyzok = new ITippelo[MAX_VERSENYZO];          // a versenyzok tombje
+        protected byte versenyzoN = 0;                                          // szamolja hanz versenyzot vettunk fel
+
+
+        // felvesz egy versenyzo tipust a tombbe
+        protected void VersenyzoFelvetele(ITippelo versenyzo)
+        {
+            versenyzok[versenyzoN++] = versenyzo;
+        }
+
+
+        protected int alsoHatar;                                                // a tippeles also hatara
+        protected int felsoHatar;                                               // a tippeles felso hatara
+
+
+        // konstruktor amely erteket ad a tippelesi hataroknak
+        public SzamKitalaloJatek(int a_hatar, int f_hatar)
+        {
+            this.alsoHatar = a_hatar;
+            this.felsoHatar = f_hatar;
+        }
+
+        protected int cel;                                                      // az a szam amit ki kell talalni
+
+        // kisorsolja a tippelendo szamot
+        // majd beallitja a jatekosoknak a hatarokat(JatekIndul)
+        protected void VersenyIndul()
+        {
+            Console.WriteLine("Verseny indul");
+
+            Random r = new Random();
+            cel = r.Next(alsoHatar, felsoHatar);
+            Console.WriteLine("Cel: {0}", cel);
+
+            for(int i = 0; i < versenyzoN; i++)
+            {
+                versenyzok[i].JatekIndul(alsoHatar, felsoHatar);
+            }
+        }
+
+        // minden jatekos tippel es eldonti, hogz jo-e a tipp
+        protected bool MindenkiTippel()
+        {
+            bool[] isThereWinner = new bool[versenyzoN+1];                      // a tomb utolso elemeben van eltarolva az hogz volt-e nzertes a korben
+            for(int i = 0; i < versenyzoN+1; i++)
+            {
+                isThereWinner[i] = false;
+            }
+
+            for(int i = 0; i < versenyzoN; i++)
+            {
+                versenyzok[i].KovetkezoTipp();
+
+                if(cel == tipp)
+                {
+                    versenyzok[i].Nyert();
+                    isThereWinner[versenyzoN+1] = true;
+                }
+            }
+
+            if (isThereWinner[versenyzoN+1])
+            {
+                for (int i = 0; i < versenyzoN; i++)
+                {
+                    if(!isThereWinner[i])
+                    {
+                        versenyzok[i].Veszitett();
+                    }
+                }
+            }
+            
+            if(isThereWinner[versenyzoN+1])
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        protected void Jatek()
+        {
+            Console.WriteLine("!Jatek KEZDODIK!!");
+            this.VersenyIndul();
+            while (!MindenkiTippel());
+        }
+    }
+}
