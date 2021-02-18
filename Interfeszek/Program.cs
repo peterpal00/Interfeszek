@@ -15,11 +15,13 @@ namespace Interfeszek
             GepiJatekos veletlenTipper = new VeletlenTippelo();
             GepiJatekos bejaroTipper = new BejaroTippelo();
             GepiJatekos logtipper = new LogaritmikusKereso();
+            EmberiJatkos ember = new EmberiJatkos();
 
 
             test1.VersenyzoFelvetele(veletlenTipper);
             test1.VersenyzoFelvetele(bejaroTipper);
             test1.VersenyzoFelvetele(logtipper);
+            test1.VersenyzoFelvetele(ember);
 
             test1.Jatek();
             Console.ReadLine();

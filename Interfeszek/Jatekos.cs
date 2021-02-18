@@ -20,12 +20,12 @@ namespace Interfeszek
         protected int nyertDB = 0;
         protected int veszitettDB = 0;
 
-        public void Nyert()
+        public virtual void Nyert()
         {
             nyertDB++;
         }
 
-        public void Veszitett()
+        public virtual void Veszitett()
         {
             veszitettDB++;
         }
@@ -80,5 +80,58 @@ namespace Interfeszek
         {
             alsoHatar++;
         }
+    }
+
+    // Az EmberiJatekos-t a GepiJatekos leszarmazottjakent adtam meg, mert a jatekban GepiJatekos-ra van megirva a kod
+    class EmberiJatkos : GepiJatekos, IOkosTippelo
+    {
+        public override void JatekIndul(int alsoHatar, int felsoHatar)
+        {
+            Console.WriteLine("A jatek elindult a kovetkezo hatarok kozott: {0}-{1}", alsoHatar, felsoHatar);
+        }
+
+        public void Kisebb()
+        {
+            Console.WriteLine("*Az elozo tippnel kisebb a keresett szam!");
+        }
+
+        public void Nagyobb()
+        {
+            Console.WriteLine("*Az elozo tippnel nagyobb a keresett szam!");
+        }
+
+        public override int KovetkezoTipp()
+        {
+            Console.WriteLine("Add meg a kovetkezo tippet:");
+            string input = Console.ReadLine();
+            int inputNum = 0;
+            
+            while(!(CheckInput(input, ref inputNum)))
+            {
+                Console.WriteLine("*Egesz szamot adj meg!");
+                input = Console.ReadLine();
+                CheckInput(input, ref inputNum);
+            }
+            Console.WriteLine("*Emberi tipp: {0}", inputNum);
+
+            return inputNum;
+        }       
+
+        public override void Nyert()
+        {
+            Console.WriteLine("*Nyertel!");
+        }
+
+        public override void Veszitett()
+        {
+            Console.WriteLine("*Veszitettel!");
+        }
+
+        // ellenorzi, hogy a megadott szam egesz szam-e
+        public bool CheckInput(string input, ref int num)
+        {
+            return int.TryParse(input, out num);
+        }
+
     }
 }

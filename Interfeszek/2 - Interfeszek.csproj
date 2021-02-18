@@ -45,7 +45,7 @@
   <ItemGroup>
     <Compile Include="Jatekos.cs" />
     <Compile Include="Jatek.cs" />
-    <Compile Include="Interface1.cs" />
+    <Compile Include="Interfaces.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

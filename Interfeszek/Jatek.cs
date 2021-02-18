@@ -68,17 +68,18 @@ namespace Interfeszek
                 {
                     Console.WriteLine("Valaki nyert!!!");
                     versenyzok[i].Nyert();
+                    isThereWinner[i] = true;
                     isThereWinner[versenyzoN] = true;                           // beallitja a tomb utolso elemet, mivel volt nyertes
                 }
-                else if (versenyzok[i] is LogaritmikusKereso)                   // ha logaritmikus a tippelo, akkor megvalositja az IOkosTippelo interfacet
+                else if (versenyzok[i] is IOkosTippelo)                   // ha logaritmikus a tippelo, akkor megvalositja az IOkosTippelo interfacet
                 {
                     if(cel < tipp)
                     {
-                        (versenyzok[i] as LogaritmikusKereso).Kisebb();
+                        (versenyzok[i] as IOkosTippelo).Kisebb();
                     }
                     else
                     {
-                        (versenyzok[i] as LogaritmikusKereso).Nagyobb();
+                        (versenyzok[i] as IOkosTippelo).Nagyobb();
                     }
                 }
             }
