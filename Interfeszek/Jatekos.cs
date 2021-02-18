@@ -61,4 +61,24 @@ namespace Interfeszek
             return aktualis++;
         }
     }
+
+    class LogaritmikusKereso : GepiJatekos, IOkosTippelo
+    {
+        public override int KovetkezoTipp()
+        {
+            int tipp = (alsoHatar + felsoHatar) / 2;
+            Console.WriteLine("Logaritmikustippelo tippel: {0}", tipp);
+            return tipp;
+        }
+
+        public void Kisebb()
+        {
+            felsoHatar--;
+        }
+
+        public void Nagyobb()
+        {
+            alsoHatar++;
+        }
+    }
 }

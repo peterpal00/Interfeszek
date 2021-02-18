@@ -17,4 +17,10 @@ namespace Interfeszek
         void JatekIndul(int alsoHatar, int felsoHatar);
         int KovetkezoTipp();
     }
+
+    interface IOkosTippelo : ITippelo
+    {
+        void Kisebb();
+        void Nagyobb();
+    }
 }
