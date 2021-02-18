@@ -21,9 +21,12 @@ namespace Interfeszek
             test1.VersenyzoFelvetele(veletlenTipper);
             test1.VersenyzoFelvetele(bejaroTipper);
             test1.VersenyzoFelvetele(logtipper);
-            test1.VersenyzoFelvetele(ember);
+            //test1.VersenyzoFelvetele(ember);                      //for test 3
 
-            test1.Jatek();
+            // test 1 - 3
+            //test1.Jatek();
+
+            test1.Statisztika(1000);
             Console.ReadLine();
 
         }

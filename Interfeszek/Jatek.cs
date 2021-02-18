@@ -41,7 +41,7 @@ namespace Interfeszek
 
             Random r = new Random();
             cel = r.Next(alsoHatar, felsoHatar);
-            System.Threading.Thread.Sleep(10);                                 // muszaj varni mert a cel random es a tippelo random mindig azonos erteket hoz ki
+            System.Threading.Thread.Sleep(1);                                 // muszaj varni mert a cel random es a tippelo random mindig azonos erteket hoz ki
             Console.WriteLine("Cel: {0}", cel);
 
             for(int i = 0; i < versenyzoN; i++)
@@ -111,6 +111,22 @@ namespace Interfeszek
             Console.WriteLine("!Jatek KEZDODIK!!");
             this.VersenyIndul();
             while (!MindenkiTippel());
+        }
+
+        public void Statisztika(int korokSzama)
+        {
+            for(int i = 0; i < korokSzama; i++)
+            {
+                Jatek();
+            }
+
+            Console.WriteLine("\n S T A T I SZ T I K A \n");
+
+            for(int i = 0; i < versenyzoN; i++)
+            {
+                Console.WriteLine("{0}. jatekos ({1}), NY:{2}  V:{3}", i, versenyzok[i].ToString(), versenyzok[i].HanyszorNyert(), versenyzok[i].HanyszorVesztett());               
+            }
+
         }
     }
 }

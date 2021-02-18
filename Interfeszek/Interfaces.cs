@@ -23,4 +23,10 @@ namespace Interfeszek
         void Kisebb();
         void Nagyobb();
     }
+
+    interface IStatisztikaSzolgaltat
+    {
+        int HanyszorNyert();
+        int HanyszorVesztett();
+    }
 }

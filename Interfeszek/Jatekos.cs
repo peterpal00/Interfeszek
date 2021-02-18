@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interfeszek
 {
-    public abstract  class GepiJatekos : ITippelo
+    public abstract  class GepiJatekos : ITippelo, IStatisztikaSzolgaltat
     {
         protected int alsoHatar;                                        // tippeles also hatara
         protected int felsoHatar;                                       // tippeles felso hatara
@@ -31,6 +31,16 @@ namespace Interfeszek
         }
 
         abstract public int KovetkezoTipp();
+
+        public int HanyszorNyert()
+        {
+            return nyertDB;
+        }
+
+        public int HanyszorVesztett()
+        {
+            return veszitettDB;
+        }
     }
 
     class VeletlenTippelo : GepiJatekos
@@ -39,7 +49,7 @@ namespace Interfeszek
         {
             Random r = new Random();
             int tipp = r.Next(alsoHatar, felsoHatar);
-            System.Threading.Thread.Sleep(10);                              // varni kell, hogy ne dobjon egymas utan a random azonos szamokat
+            System.Threading.Thread.Sleep(1);                              // varni kell, hogy ne dobjon egymas utan a random azonos szamokat
             Console.WriteLine("Veletlentippelo tippel : {0}", tipp);
             return tipp;
         }
