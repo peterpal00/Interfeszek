@@ -9,9 +9,9 @@ namespace Interfeszek
     class SzamKitalaloJatek
     {
         const byte MAX_VERSENYZO = 5;                                           // a versenyzok maximalis szama
-        protected GepiJatekos[] versenyzok = new GepiJatekos[MAX_VERSENYZO];          // a versenyzok tombje
+        protected GepiJatekos[] versenyzok = new GepiJatekos[MAX_VERSENYZO];    // a versenyzok tombje
         protected byte versenyzoN = 0;                                          // szamolja hanz versenyzot vettunk fel
-
+        public bool isThereWinner = false;                                              // jeloli, hogy nyert-e valaki a korben
 
         // felvesz egy versenyzo tipust a tombbe
         public void VersenyzoFelvetele(GepiJatekos versenyzo)
@@ -42,7 +42,7 @@ namespace Interfeszek
             Random r = new Random();
             cel = r.Next(alsoHatar, felsoHatar);
             System.Threading.Thread.Sleep(1);                                 // muszaj varni mert a cel random es a tippelo random mindig azonos erteket hoz ki
-            Console.WriteLine("Cel: {0}", cel);
+            Console.WriteLine("Cel: {0} \n", cel);
 
             for(int i = 0; i < versenyzoN; i++)
             {
@@ -54,10 +54,11 @@ namespace Interfeszek
         protected bool MindenkiTippel()
         {
             Console.WriteLine("Mindenki tippel");
-            bool[] isThereWinner = new bool[versenyzoN+1];                      // a tomb utolso elemeben van eltarolva az hogz volt-e nzertes a korben
-            for(int i = 0; i < versenyzoN+1; i++)
+            isThereWinner = false;
+            bool[] isItWinner = new bool[versenyzoN];                      // a tomb utolso elemeben van eltarolva az hogz volt-e nzertes a korben
+            for(int i = 0; i < versenyzoN; i++)
             {
-                isThereWinner[i] = false;
+                isItWinner[i] = false;
             }
 
             for(int i = 0; i < versenyzoN; i++)
@@ -66,10 +67,10 @@ namespace Interfeszek
 
                 if(cel == tipp)
                 {
-                    Console.WriteLine("Valaki nyert!!!");
+                    //Console.WriteLine("Valaki nyert!!!");
                     versenyzok[i].Nyert();
-                    isThereWinner[i] = true;
-                    isThereWinner[versenyzoN] = true;                           // beallitja a tomb utolso elemet, mivel volt nyertes
+                    isItWinner[i] = true;
+                    isThereWinner = true;                           // beallitja a tomb utolso elemet, mivel volt nyertes
                 }
                 else if (versenyzok[i] is IOkosTippelo)                   // ha logaritmikus a tippelo, akkor megvalositja az IOkosTippelo interfacet
                 {
@@ -85,19 +86,16 @@ namespace Interfeszek
             }
 
 
-            if (isThereWinner[versenyzoN])
+            if (isThereWinner)
             {
                 for (int i = 0; i < versenyzoN; i++)
                 {
-                    if(!isThereWinner[i])
+                    if(!isItWinner[i])
                     {
                         versenyzok[i].Veszitett();
                     }
                 }
-            }
-            
-            if(isThereWinner[versenyzoN])
-            {
+
                 return true;
             }
             else
@@ -106,21 +104,21 @@ namespace Interfeszek
             }
         }
 
-        public void Jatek()
+        public virtual void Jatek()
         {
             Console.WriteLine("!Jatek KEZDODIK!!");
             this.VersenyIndul();
             while (!MindenkiTippel());
         }
 
-        public void Statisztika(int korokSzama)
+        public virtual void Statisztika(int korokSzama)
         {
             for(int i = 0; i < korokSzama; i++)
             {
                 Jatek();
             }
 
-            Console.WriteLine("\n S T A T I SZ T I K A \n");
+            Console.WriteLine("\nS T A T I SZ T I K A \n");
 
             for(int i = 0; i < versenyzoN; i++)
             {
@@ -128,5 +126,57 @@ namespace Interfeszek
             }
 
         }
+    }
+
+    class SzamKitalaloJatekKaszino : SzamKitalaloJatek, IStatisztikaSzolgaltat
+    {
+        int kaszinoNyert = 0;
+        int kaszinoVeszitett = 0;
+        int maxTippSzam;                                                                                // ebben a feladatban "korokSzama" neven van jelolve, de ilyen valtozot mar hasznalunk
+
+        public SzamKitalaloJatekKaszino(int a_hatar, int f_hatar, int maxTipp) : base(a_hatar, f_hatar)
+        {
+            this.maxTippSzam = maxTipp;
+        }
+
+        public override void Jatek()
+        {
+            Console.WriteLine("\n+++++++++++++++++++++++++++++++++++++++++++++++++++++ \n");
+            Console.WriteLine("!Jatek KEZDODIK!!");
+            this.VersenyIndul();
+
+            for(int i = 0; i < maxTippSzam && !MindenkiTippel(); i++)
+            {
+                
+            }
+
+            if(isThereWinner)
+            {
+                kaszinoVeszitett++;
+            }
+            else
+            {
+                kaszinoNyert++;
+                Console.WriteLine("* \nWINNER ===> KASZINO Nyert! \n*");
+            }
+            
+        }
+
+        public int HanyszorNyert()
+        {
+            return kaszinoNyert;
+        }
+
+        public int HanyszorVesztett()
+        {
+            return kaszinoVeszitett;
+        }
+
+        public void Statisztika(int korokSzama)
+        {
+            base.Statisztika(korokSzama);
+            Console.WriteLine("KASZINO ({0}), NY:{1}  V:{2}", this.ToString(), this.HanyszorNyert(), this.HanyszorVesztett());
+        }
+
     }
 }

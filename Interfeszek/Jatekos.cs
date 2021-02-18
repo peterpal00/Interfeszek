@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Interfeszek
 {
-    public abstract  class GepiJatekos : ITippelo, IStatisztikaSzolgaltat
+    abstract  class GepiJatekos : ITippelo, IStatisztikaSzolgaltat
     {
         protected int alsoHatar;                                        // tippeles also hatara
         protected int felsoHatar;                                       // tippeles felso hatara
@@ -23,6 +23,7 @@ namespace Interfeszek
         public virtual void Nyert()
         {
             nyertDB++;
+            Console.WriteLine("*\nWINNER ===> {0} nyert!! \n*", this.ToString());
         }
 
         public virtual void Veszitett()
@@ -142,6 +143,5 @@ namespace Interfeszek
         {
             return int.TryParse(input, out num);
         }
-
     }
 }

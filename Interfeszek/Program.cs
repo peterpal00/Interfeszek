@@ -21,12 +21,18 @@ namespace Interfeszek
             test1.VersenyzoFelvetele(veletlenTipper);
             test1.VersenyzoFelvetele(bejaroTipper);
             test1.VersenyzoFelvetele(logtipper);
-            //test1.VersenyzoFelvetele(ember);                      //for test 3
+            //test1.VersenyzoFelvetele(ember);                      //for test3
 
             // test 1 - 3
             //test1.Jatek();
 
-            test1.Statisztika(1000);
+            //test1.Statisztika(1000);                              // for test4
+
+            SzamKitalaloJatekKaszino kaszino = new SzamKitalaloJatekKaszino(1, 10, 6);
+            kaszino.VersenyzoFelvetele(veletlenTipper);
+            kaszino.VersenyzoFelvetele(bejaroTipper);
+            kaszino.VersenyzoFelvetele(logtipper);
+            kaszino.Statisztika(100);
             Console.ReadLine();
 
         }
