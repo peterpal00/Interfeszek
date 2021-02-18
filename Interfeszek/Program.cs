@@ -10,7 +10,7 @@ namespace Interfeszek
     {
         static void Main(string[] args)
         {
-            SzamKitalaloJatek test1 = new SzamKitalaloJatek(5, 50);
+            SzamKitalaloJatek test1 = new SzamKitalaloJatek(5, 51);
 
             GepiJatekos veletlenTipper = new VeletlenTippelo();
             GepiJatekos bejaroTipper = new BejaroTippelo();

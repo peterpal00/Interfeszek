@@ -66,7 +66,7 @@ namespace Interfeszek
     {
         public override int KovetkezoTipp()
         {
-            int tipp = (alsoHatar + felsoHatar) / 2;
+            int tipp =(alsoHatar + felsoHatar) / 2;
             Console.WriteLine("Logaritmikustippelo tippel: {0}", tipp);
             return tipp;
         }
